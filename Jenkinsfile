@@ -1,10 +1,12 @@
 pipeline {
   agent any
     stages {
-        stage('Preparation') {
-            steps { git branch:'master', url: 'https://github.com/ahmednreldin/GoViolin/'}
-                 }
-        stage('Build') {
+        stage('Git Clone') {
+            steps { 
+                git branch:'master', url: 'https://github.com/ahmednreldin/GoViolin/'
+                }
+            }
+        stage('Docker Build') {
             steps {
                 script{
                     try{
@@ -31,9 +33,14 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId:"dockerhub",usernameVariable:"username",passwordVariable:"pass")])
                 {
                     sh 'docker login -u ${username} -p ${pass}'
-                    sh 'docker push ${username}/go-violin:v1.0'
+                    sh 'docker push ${username}/go-violin:latest'
+                }}}
+        stage('deploy App to K8S'){
+            steps {
+                script {
+                        kubernetesDeploy(configs: "deployment.yml", kubeconfigId: "kubernetes")
+                    }
                 }
-            }
         }
     }  
 }
