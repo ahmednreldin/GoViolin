@@ -1,0 +1,8 @@
+.dockerignore
+.gitignore
+.git
+README.md
+vendor
+*.yml 
+Jenkinsfile 
+Dockerfile
