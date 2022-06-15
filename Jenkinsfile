@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment{
       DOCKER_CREDENTIALS = credentials('DockerHub')
-      KUBERNETES_CREDENTIALS = credentials('kubernetes')
+    //   KUBERNETES_CREDENTIALS = credentials('kubernetes')
       KUBERNETES_CONFIG = "deployment.yml"
   }
     stages {
