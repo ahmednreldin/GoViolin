@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script{
                     try{
-                            sh 'docker build . -t ${DOCKER_CREDENTIALS_USR}/go-violin:latest'  
+                            sh "docker build . -t ${DOCKER_CREDENTIALS_USR}/go-violin:latest" 
                         }
                     catch(error){
                         echo "Caught: ${error.getMessage()}"
@@ -33,8 +33,8 @@ pipeline {
              }
         stage ('Push Image to Docker Hub'){
             steps{
-                    sh 'docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}'
-                    sh 'docker push ${DOCKER_CREDENTIALS_USR}/go-violin:latest'
+                    sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
+                    sh "docker push ${DOCKER_CREDENTIALS_USR}/go-violin:latest"
                 }}
 
         // stage('Deploy App to K8S'){
