@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script{
                     try{
-                        withCredentials([usernamePassword(credentialsId:"dockerhub",usernameVariable:"username",passwordVariable:"pass")]){
+                        withCredentials([usernamePassword(credentialsId:"DockerHub",usernameVariable:"username",passwordVariable:"pass")]){
                             sh 'docker build . -t ${username}/go-violin:latest'
                             }
                         }
@@ -30,7 +30,7 @@ pipeline {
             }
         stage ('Push Image to Docker Hub'){
             steps{
-                withCredentials([usernamePassword(credentialsId:"dockerhub",usernameVariable:"username",passwordVariable:"pass")])
+                withCredentials([usernamePassword(credentialsId:"DockerHub",usernameVariable:"username",passwordVariable:"pass")])
                 {
                     sh 'docker login -u ${username} -p ${pass}'
                     sh 'docker push ${username}/go-violin:latest'
