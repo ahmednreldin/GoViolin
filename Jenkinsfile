@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment{
+      DOCKER_CREDENTIALS = credentials('DockerHub')
+  }
     stages {
         stage('Git Clone') {
             steps { 
@@ -10,9 +13,7 @@ pipeline {
             steps {
                 script{
                     try{
-                        withCredentials([usernamePassword(credentialsId:"DockerHub",usernameVariable:"username",passwordVariable:"pass")]){
-                            sh 'docker build . -t ${username}/go-violin:latest'
-                            }
+                            sh 'docker build . -t ${DOCKER_CREDENTIALS_USR}/go-violin:latest'  
                         }
                     catch(error){
                         echo "Caught: ${error.getMessage()}"
@@ -30,11 +31,11 @@ pipeline {
             }
         stage ('Push Image to Docker Hub'){
             steps{
-                withCredentials([usernamePassword(credentialsId:"DockerHub",usernameVariable:"username",passwordVariable:"pass")])
-                {
-                    sh 'docker login -u ${username} -p ${pass}'
-                    sh 'docker push ${username}/go-violin:latest'
-                }}}
+                    sh 'docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}'
+                    sh 'docker push ${DOCKER_CREDENTIALS_USR}/go-violin:latest'
+                }
+                
+                }
         stage('deploy App to K8S'){
             steps {
                 script {
