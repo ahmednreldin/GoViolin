@@ -3,7 +3,7 @@ pipeline {
   environment{
       DOCKER_CREDENTIALS = credentials('DockerHub')
     //   KUBERNETES_CREDENTIALS = credentials('kubernetes')
-      KUBERNETES_CONFIG = "deployment.yml"
+    //   KUBERNETES_CONFIG = "deployment.yml"
   }
     stages {
         stage('Git Clone') {
@@ -33,15 +33,17 @@ pipeline {
              }
         stage ('Push Image to Docker Hub'){
             steps{
-                    sh 'docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW} --password-stdin'
+                    sh 'docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}'
                     sh 'docker push ${DOCKER_CREDENTIALS_USR}/go-violin:latest'
                 }}
-        stage('Deploy App to K8S'){
-            steps {
-                script {
-                        kubernetesDeploy(configs:KUBERNETES_CONFIG, kubeconfigId: KUBERNETES_CREDENTIALS)
-                    }
-                }
-        }
+
+        // stage('Deploy App to K8S'){
+        //     steps {
+        //         script {
+        //                 kubernetesDeploy(configs:KUBERNETES_CONFIG, kubeconfigId: KUBERNETES_CREDENTIALS)
+        //             }
+        //         }
+        // }
+
     }  
 }
