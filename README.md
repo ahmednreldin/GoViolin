@@ -1,6 +1,6 @@
 # GoViolin
 
-## Generate go.mod go.sum
+### Generate go.mod go.sum
 
 go mod init github.com/Rosalita/GoViolin
 go mod tidy // Then go mod tidy to generate go.sum
