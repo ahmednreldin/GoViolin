@@ -1,18 +1,14 @@
 # GoViolin
 
 ### Generate go.mod go.sum
-
 go mod init github.com/Rosalita/GoViolin
 go mod tidy // Then go mod tidy to generate go.sum
 
-GoViolin is a web app written in Go that helps with violin practice.
+### Build image
+docker build -t <image-name> . 
 
-Currently hosted on Heroku at https://go-violin.herokuapp.com/
+## Run 
+docker run -p <host-port>:<port-exposed-in-dockerfile> -d <image-name>
 
-GoViolin allows practice over both 1 and 2 octaves.
-
-Contains:
-* Major Scales
-* Harmonic and Melodic Minor scales
-* Arpeggios
-* A set of two part scale duet melodies by Franz Wohlfahrt
+## Access Application
+localhost:<host-port>
