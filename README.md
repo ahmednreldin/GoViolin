@@ -19,4 +19,6 @@ docker run -p ${host-port}:${port-exposed-in-dockerfile} -d image-name
 ```
 
 ## Access Application
+```
 localhost:host-port
+```
