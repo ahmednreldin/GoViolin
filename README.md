@@ -1,5 +1,10 @@
 # GoViolin
 
+## Generate go.mod go.sum
+
+go mod init github.com/Rosalita/GoViolin
+go mod tidy // Then go mod tidy to generate go.sum
+
 GoViolin is a web app written in Go that helps with violin practice.
 
 Currently hosted on Heroku at https://go-violin.herokuapp.com/
